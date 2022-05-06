@@ -810,8 +810,8 @@ State_space_timeseries_plot_pdf<- function(sp,GZ,params1,TT,ts,path,i){
 
 
 ts_reef = function(X){
-  occ_by_year<- X %>% group_by(year) %>% summarize(n.occ=sum(occ),n.surv=n(),p.occ=n.occ/n.surv)
-  abun_by_year<- X %>% group_by(year,geogr) %>% summarize(site_abun=mean(abund_trans),sd_abund=sd(abund_trans),n.surv=n()) %>% group_by(year) %>% summarize(mean_abund=mean(site_abun),n.survs=sum(n.surv),n.sites=n())
+  occ_by_year<- X %>% group_by(year) %>% summarize(n.occ=sum(occ),n.surv=n_distinct(formid),p.occ=n.occ/n.surv)
+  abun_by_year<- X %>% group_by(year,geogr) %>% summarize(site_abun=mean(abund_trans),sd_abund=sd(abund_trans),n.surv=n_distinct(formid)) %>% group_by(year) %>% summarize(mean_abund=mean(site_abun),n.survs=sum(n.surv),n.sites=n())
   total_sd<- X %>% group_by(year) %>% summarize(sd=sd(abund_trans))
   
   comb<- left_join(occ_by_year,abun_by_year)

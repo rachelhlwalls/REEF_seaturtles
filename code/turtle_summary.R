@@ -76,7 +76,25 @@ for(i in 1:227){
   }
 }
 
+
+#Green sea turtles - all TWA
 greens_twa=reef_filter_sp_nogz(R,sp=c(661,662))
+
+length(unique(greens_twa$site))
+
+greens_site_n<- greens_twa %>% group_by(site) %>% summarize(n=n())
+greens_site4_n<- greens_twa %>% group_by(site4) %>% summarize(n.surveys=n_distinct(formid),n.sites=n_distinct(site))
+
+greens_site4_ny<- greens_twa %>% group_by(site4,year) %>% summarize(n.surveys=n_distinct(formid),n.sites=n_distinct(site))
+
+survs_8503<- subset(greens_site4_ny,site4==8503)
+survs_3403<- subset(greens_site4_ny,site4==3403)
+plot(n.surveys~year,data=survs_8503,type='n',bty='l',ylim=c(0,max(survs_8503$n.surveys)))
+lines(n.surveys~year,data=survs_8503,lwd=2,col='navy')
+lines(n.surveys~year,data=survs_3403,lwd=2,col='goldenrod')
+
+hist(greens_site_n$n)
+
 
 #green_ds[[i]]=length(unique(green[[i]]$site)) # total # of dive sites
 #green[[124]]<-green[[124]][as.numeric(green[[124]]$abundance)>0,] # removing 0s/non-occurrences
