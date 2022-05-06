@@ -93,6 +93,9 @@ plot(n.surveys~year,data=survs_8503,type='n',bty='l',ylim=c(0,max(survs_8503$n.s
 lines(n.surveys~year,data=survs_8503,lwd=2,col='navy')
 lines(n.surveys~year,data=survs_3403,lwd=2,col='goldenrod')
 
+gt_8503=subset(greens_twa,site4==8503)
+length(unique(gt_8503$site))
+ts_8503=ts_reef(gt_8503)
 hist(greens_site_n$n)
 
 
